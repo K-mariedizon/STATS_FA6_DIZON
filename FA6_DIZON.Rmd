@@ -1,0 +1,173 @@
+---
+title: "FA6"
+author: "Kiana Marie Dizon"
+date: "2024-09-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Question 1: Quartiles of the Distribution
+
+Explanation:
+
+The total number of students is 120.
+
+- Quartiles are calculated based on the cumulative student frequencies:
+
+Q1 (25th percentile) is at the position 0.25 * 120 = 30.
+
+Q2 (50th percentile, median) is at 0.50 * 120 = 60.
+
+Q3 (75th percentile) is at 0.75 * 120 = 90.
+
+```{r 1}
+
+grades <- c(90, 80, 70, 60, 50, 40, 30)
+students <- c(9, 32, 43, 21, 11, 3, 1)
+
+#frequency table
+freq_table <- data.frame(Grade = grades, Number_of_Students = students)
+
+# Cumulative frequencies
+freq_table$Cumulative_Students <- cumsum(students)
+
+
+knitr::kable(freq_table, caption = "Frequency Distribution of Grades")
+
+
+total_students <- sum(students)
+
+# Quartiles calculation
+Q1 <- 0.25 * total_students
+Q2 <- 0.50 * total_students
+Q3 <- 0.75 * total_students
+
+
+Q1
+Q2
+Q3
+
+```
+
+Question 2: Absolute and Relative Dispersion
+Explanation:
+
+- Absolute Dispersion is just the standard deviation:
+
+For Statistics: SD = 8
+
+For Algebra: SD = 7.6
+
+- Relative Dispersion (coefficient of variation):
+
+For Statistics: CV= 8/78 ≈ 0.1026
+
+For Algebra: CV= 7.6/73 ≈ 0.1041
+
+
+```{r 2}
+
+means <- c(78, 73)
+sds <- c(8, 7.6)
+subjects <- c("Statistics", "Algebra")
+
+# Absolute dispersion is just the standard deviation
+absolute_dispersion <- sds
+
+# Relative dispersion (Coefficient of variation = standard deviation / mean)
+relative_dispersion <- sds / means
+
+#data frame 
+dispersion_df <- data.frame(Subject = subjects, Mean = means, Standard_Deviation = sds, 
+                            Absolute_Dispersion = absolute_dispersion, 
+                            Relative_Dispersion = relative_dispersion)
+
+
+knitr::kable(dispersion_df, caption = "Dispersion Comparison between Statistics and Algebra")
+
+```
+
+Question 3: Proving the Mean and Standard Deviation of Standard Scores
+
+```{r 3}
+
+data_set <- c(6, 2, 8, 7, 5)
+
+#mean and standard deviation of the set
+mean_set <- mean(data_set)
+std_set <- sd(data_set)
+
+# Convert to standard scores
+standard_scores <- (data_set - mean_set) / std_set
+
+# data frame 
+standard_scores_df <- data.frame(Original_Score = data_set, Standard_Score = standard_scores)
+
+
+knitr::kable(standard_scores_df, caption = "Standard Scores of the Data Set")
+
+# Mean and standard deviation of the standard scores
+mean_standard_scores <- mean(standard_scores)
+std_standard_scores <- sd(standard_scores)
+
+
+list(Mean_of_Standard_Scores = mean_standard_scores, SD_of_Standard_Scores = std_standard_scores)
+
+```
+
+Question 4: Mean and Standard Deviation of Mass
+
+```{r 4}
+
+masses <- c(20.48, 35.97, 62.34)
+mass_sds <- c(0.21, 0.46, 0.54)
+
+
+mass_df <- data.frame(Mass = masses, SD = mass_sds)
+
+
+knitr::kable(mass_df, caption = "Masses and their Standard Deviations")
+
+# Mean of the sum of masses
+mean_sum_mass <- sum(masses)
+
+# Standard deviation of the sum of masses (square root of sum of variances)
+std_sum_mass <- sqrt(sum(mass_sds^2))
+
+
+list(Mean_of_Sum = mean_sum_mass, SD_of_Sum = std_sum_mass)
+
+```
+
+Question 5: Credit Hour Distribution
+
+- Mean (Expected value):
+𝐸(𝑋)=6(0.1)+9(0.2)+12(0.4)+15(0.2)+18(0.1)=12
+
+- Variance: 
+Var(X)=(6−12)^2(0.1) + (9−12)^2(0.2) + (12−12)^2(0.4) + (15−12)^2(0.2) + (18−12)^2(0.1)=9
+
+```{r 5}
+#credit hour distribution
+x <- c(6, 9, 12, 15, 18)
+p_x <- c(0.1, 0.2, 0.4, 0.2, 0.1)
+
+
+credit_df <- data.frame(Credit_Hours = x, Probability = p_x)
+
+
+knitr::kable(credit_df, caption = "Credit Hour Distribution")
+
+# Mean (Expected value) of credit hours
+mean_x <- sum(x * p_x)
+
+# Variance of credit hours
+var_x <- sum((x - mean_x)^2 * p_x)
+
+# Display results
+list(Mean = mean_x, Variance = var_x)
+
+```
